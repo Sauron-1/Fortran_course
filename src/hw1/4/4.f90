@@ -1,4 +1,5 @@
 Program main
+    implicit none
     Real*8 :: a, b, c
     write(*, *) 'Please input a, b, c'
     read(*, *) a, b, c

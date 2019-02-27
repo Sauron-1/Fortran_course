@@ -1,4 +1,5 @@
 Program main
+    implicit none
     Logical a
     a = .true.
     write(*, *) a-1

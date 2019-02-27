@@ -7,7 +7,7 @@ program main
     else if (income < 5000) then
         tax = income*0.03 + (income-1000)*0.07
     else
-        tax = income*0.03 + (income-1000)*0.07 + (income-5000)*0.08
+        tax = income*0.03 + (income-1000)*0.07 + (income-5000)*0.05
     end if
     write(*, *) "tax: ", tax
 end program
