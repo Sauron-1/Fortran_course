@@ -7,6 +7,7 @@ do
             if test -d $file
             then
                 rm $file/*.exe
+                rm $file/*.out
             fi
         done
     fi
