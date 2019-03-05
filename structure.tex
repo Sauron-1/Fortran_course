@@ -3,6 +3,7 @@
 \usepackage{listings}
 \usepackage{fontspec}
 \usepackage{xcolor}
+\usepackage[colorlinks=true,filecolor=blue,urlcolor=blue,linkcolor=blue]{hyperref}
 \lstset{
     basicstyle=\fontspec{Courier New Bold},
     columns=fixed,
@@ -17,5 +18,13 @@
     language=fortran,
 }
 
-\newcommand{\code}[2]{\lstinputlisting{../../src/hw#1/#2/#2.f90}}
-\newcommand{\codes}[3]{文件#3.f90：\\ \lstinputlisting{../../src/hw#1/#2/#3.f90}}
+\def\path{0}
+\def\code#1{\\\href{\path/#1}{\underline{#1}}\lstinputlisting{\path/#1}}
+\def\file#1{\href{\path/#1}{\underline{#1}}}
+\def\question#1#2{
+    \def\path{#1}
+    \begin{enumerate}
+        \item{#1}
+    #2
+    \end{enumerate}
+}
