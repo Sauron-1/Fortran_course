@@ -23,8 +23,7 @@
 \def\file#1{\href{\path/#1}{\underline{#1}}}
 \def\question#1#2{
     \def\path{#1}
-    \begin{enumerate}
-        \item{#1}
+    \item{#1}
     #2
-    \end{enumerate}
 }
+\newevironment{\answer}{\begin{enumerate}}{\end{enumerate}}
