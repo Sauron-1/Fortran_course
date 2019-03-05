@@ -1,7 +1,10 @@
 program main
+
     implicit none
     Integer*4 :: prime(200), i, j
 
+    !Generate prime number table.
+    !If prime(i) == 1, then i is a prime number.
     do i = 1, 200
         prime(i) = 1
     end do
@@ -15,6 +18,7 @@ program main
         end do
     end do
 
+    !Only print the first match.
     do i = 100, 200
         if (mod(i, 2) == 0) then
             do j = 1, i
@@ -25,4 +29,5 @@ program main
             end do
         end if
     end do
+
 end program
