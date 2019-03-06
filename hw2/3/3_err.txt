@@ -1,0 +1,16 @@
+ Please input max number of students: 
+ Input a student's score
+ Serial number -1 will stop inputing
+ Format: Serial Course1 Course2 Course3 Course4
+ Input a student's score
+ Serial number -1 will stop inputing
+ Format: Serial Course1 Course2 Course3 Course4
+ Input a student's score
+ Serial number -1 will stop inputing
+ Format: Serial Course1 Course2 Course3 Course4
+ Input a student's score
+ Serial number -1 will stop inputing
+ Format: Serial Course1 Course2 Course3 Course4
+ Input a student's score
+ Serial number -1 will stop inputing
+ Format: Serial Course1 Course2 Course3 Course4
