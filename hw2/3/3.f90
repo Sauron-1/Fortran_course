@@ -15,7 +15,7 @@ program main
     student_number = 0
 
     !Read scores, until student serial number -1 encountered
-    do
+    do i = 1, number_max
         write(0, *) "Input a student's score"
         write(0, *) "Serial number -1 will stop inputing"
         write(0, *) "Format: Serial Course1 Course2 Course3 Course4"
