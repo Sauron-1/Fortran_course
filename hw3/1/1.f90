@@ -5,6 +5,7 @@ subroutine Str2num(str, num)
     Integer :: inte=0, dicimal=1, i
     Logical :: dic_encountered = .false.
 
+    !Tranverse the string, get the number as float dicimal number.
     do i = 1, len(str)
         if ('0' < str(i:i) .and. '9' > str(i:i)) then
             inte = inte*10 + iachar(str(i:i)) - iachar('0')
@@ -16,6 +17,7 @@ subroutine Str2num(str, num)
         end if
     end do
 
+    !Choose to return Real or Integer, but I don't know if fortran suppports templete.
     if (dic_encountered) then
         num = Real(inte) / dicimal
     else

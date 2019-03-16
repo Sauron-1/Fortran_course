@@ -3,6 +3,7 @@ subroutine max(A, B, m, n, k)
     Real :: A(:, :), B(:)
     Integer :: m, n, k
     
+    !The question looks like a description of this fuction.
     B = maxval(A, k)
 end subroutine max
 
@@ -17,6 +18,7 @@ program main
         end subroutine max
     end interface
 
+    !Input and output, blablalba...
     write(0, *) "Input m, n, k"
     read(*, *) m, n, k
     allocate(A(m, n))

@@ -2,6 +2,7 @@ subroutine encrypt(str)
     Character (len=*) :: str
     Integer :: i
 
+    !Just do what is asked.
     do i = 0, len(str)
         if (str(i:i) >= 'A' .and. str(i:i) <= 'Z') then
             str(i:i) = achar(iachar('Z') - iachar(str(i:i)) + iachar('A'))
@@ -23,6 +24,7 @@ program main
     write(0, *) "Input the string"
     read(*, *) str
 
+    !Remove the extra length of the string.
     str = trim(str)
     call encrypt(str)
 
