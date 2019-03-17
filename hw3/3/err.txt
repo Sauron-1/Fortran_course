@@ -1,0 +1,2 @@
+ Input max string length
+ Input the string
