@@ -17,7 +17,8 @@ subroutine Str2num(str, num)
         end if
     end do
 
-    !Choose to return Real or Integer, but I don't know if fortran suppports templete.
+    !Choose to return Real or Integer, 
+    !but I don't know if fortran suppports templete.
     if (dic_encountered) then
         num = Real(inte) / dicimal
     else
