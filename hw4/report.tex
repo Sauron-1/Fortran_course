@@ -1,0 +1,50 @@
+\documentclass{ctexart}
+
+\input{../structure.tex}
+
+\homework{四}
+
+\begin{document}
+
+\maketitle
+
+    \begin{answer}
+
+    \question{1}
+        求50以内的勾股数，即求满足A的平方加B的平方等于C的平方的A、B、C。要求: \\
+        1. A、B和C均小于或等于50，且没有重复解。例如，A=3，B=4，C=5及A=4，B=3，C=5即是重复解。\\
+        2. 格式化输出结果，例如 $3^\land2+4^\land2=5^\land2$ \\
+
+        直接暴力求解：在保证$a<b<c$的情况下，遍历50以内所有值，并输出其中的勾股数。代码如下：
+        \code{1.f90}
+        无输入文件，输出文件为\file{output.txt}。
+
+    \question{2}
+        利用随机数函数产生若干个整数放在一个无格式顺序文件中，然后删除其中的奇数。\\
+
+        生成并存放随机数，然后将其中的偶数输出到另一个文件中。代码如下：
+        \code{2.f90}
+        原始随机数存储在\file{origin.dat}中，删除奇数后的存放在\file{no\_odd.dat}中。两文件均非文本文件。
+
+    \question{3}
+        文件中的数据已经按照从小到大的顺序排列，一个记录中放一个整数，请将任意一个数插入到文件中去，插入后文件中的数仍然有序。\\
+
+        建立一个数组作为缓冲区，将文件读入缓冲区时插入该整数，当文件读取结束后将缓冲区从头写入文件。代码如下：
+        \code{3.f90}
+        输入文件为\file{input.txt}，插入前的文件副本为\file{numbers\_origin.txt}，插入后的文件为\file{numbers.txt}。
+
+    \question{4}
+        检验课件中的代码。\\
+
+        写文件代码：
+        \code{write.f90}
+        写入文件\file{FILE8-4.TXT}。
+
+        读文件代码：
+        \code{read.f90}
+        输出到\file{output.txt}。\\
+        从输出结果中看到，变量value未被读入。可能原因是文件中第一行只有一个数，被number记录，输入格式无法找到f8.3。
+    
+    \end{answer}
+
+\end{document}
