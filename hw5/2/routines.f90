@@ -10,12 +10,13 @@ module Routines
                 x(i) = (i - 1) * dx + x_range(1)
             end forall
             u = 1.5 + s * tanh(x)
-            a = u
+            t = 0
         end subroutine init
 
         subroutine next_LW
             implicit none
             Real, save :: u_t(0:nx+1), a_t(1:nx+1)
+            !$omp threadprivate(u_t, a_t)
             u_t(1:nx) = u
             u_t(0) = 1.5 + s * tanh(x_range(1))
             u_t(nx+1) = 1.5 + s * tanh(x_range(2))

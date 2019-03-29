@@ -1,8 +1,9 @@
 import numpy as np
 from scipy.io import FortranFile
 import matplotlib.pyplot as plt
+import sys
 
-f = FortranFile('LW.dat', 'r')
+f = FortranFile(sys.argv[1], 'r')
 x = np.linspace(-2, 14, 101)
 
 lines = []
@@ -20,4 +21,4 @@ while True:
 plt.xlabel('x')
 plt.ylabel('u')
 plt.legend(handles=lines, labels=labels)
-plt.show()
+plt.savefig(sys.argv[1][:-4]+'.eps', format='eps')

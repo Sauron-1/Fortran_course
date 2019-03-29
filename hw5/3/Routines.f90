@@ -15,9 +15,25 @@ module Routines
             t = 0
         end subroutine init
 
+        subroutine init_without_u
+            implicit none
+            Integer :: i
+            forall (i = 1:nx)
+                x(i) = (i-1) * dx + x_range(1)
+            end forall
+            t = 0
+        end subroutine init_without_u
+
+        subroutine init_u
+            implicit none
+            u_last = u
+            u_next = u
+        end subroutine init_u
+
         subroutine next
             implicit none
             Real, save :: u_t(0:nx+1), alpha
+            !$omp threadprivate(u_t, alpha)
 
             dt = dx*CFL/maxval(abs(u))
             u_t(1:nx) = u

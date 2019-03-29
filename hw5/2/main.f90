@@ -12,7 +12,6 @@ program main
     do i = 1, ntend
         do while(t < tend(i))
             call next_LW
-            write(*, *) t, sum(u)
         end do
         write(10) t, u
     end do
