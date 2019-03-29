@@ -20,4 +20,4 @@ while True:
 plt.xlabel('x')
 plt.ylabel('u')
 plt.legend(handles=lines, labels=labels)
-plt.show()
+plt.savefig('data.eps', format='eps')
