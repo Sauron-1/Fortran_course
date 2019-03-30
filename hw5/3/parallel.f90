@@ -1,6 +1,6 @@
 program main
     !Two threads case.
-    !Data will be saved to parallel_0.dat and parallel_1.dat
+    !Data will be saved to parallel0.dat to parallel3.dat
     use Global
     use Routines
     implicit none
@@ -9,13 +9,21 @@ program main
     Character :: filename
 
     !$omp parallel do private(j)
-    do i = 0, 1
+    do i = 0, 3
         call init_without_u
         select case(i)
             case(0)
                 u = exp(-(x/0.1)**2)
+                CFL = 0.1
             case(1)
                 u = exp(-((x-1)/0.1)**2) + exp(-((x+1)/0.1)**2)
+                CFL = 0.1
+            case(2)
+                u = exp(-(x/0.1)**2)
+                CFL = 0.5
+            case(3)
+                u = exp(-(x/0.1)**2)
+                CFL = 10.
         end select
         call init_u
         write(filename, '(i1)') i

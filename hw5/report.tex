@@ -41,12 +41,18 @@
     绘图代码：
     \codes{python}{draw.py}
     其中，并行测试部分的第一个输出与非并行部分相同，以下插图不再重复。
-    $s = 1$：
+    $s = 1, CFL=0.1$：
     \pict{parallel0.eps}\\
-    $s = -1$：
+    $s = -1, CFL=0.1$：
     \pict{parallel1.eps}\\
+    $s = 1, CFL=0.5$：
+    \pict{parallel2.eps}\\
+    $s = 1, CFL=1$：
+    \pict{parallel3.eps}\\
     非并行程序的输出文件为\file{LW.dat}，相应图像为\file{LW.eps}。
     并行程序的输出文件为\file{parallel0.dat}和\file{parallel1.dat}。
+
+    CFL在网格足够密时影响较小。
 
     \question{3}
     用蛙跳格式编写程序求解扩散方程，并分析CFL（柯朗数）对计算的影响。\\
@@ -68,8 +74,21 @@
     \pict{parallel0.eps}\\
     双峰：
     \pict{parallel1.eps}\\
+    单峰, CFL=0.5：
+    \pict{parallel2.eps}\\
+    单峰, CFL=10：
+    \pict{parallel3.eps}\\
     非并行程序的输出文件为\file{data.dat}，相应图像为\file{data.eps}。
     并行程序的输出文件为\file{parallel0.dat}和\file{parallel1.dat}。
+
+    CFL在网格足够密集时几乎没有影响。
+
+    \question{4}
+    求$\int_0^1 \sin x dx$\\
+
+    用梯形法，表示为数组形式，代码如下：
+    \code{4.f90}
+    输入文件为\file{input.txt}，输出文件为\file{output.txt}。
 
 \end{answer}
 \end{document}

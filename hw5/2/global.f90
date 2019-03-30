@@ -5,12 +5,10 @@ module Global
     !Grid
     Real, parameter :: x_range(2) = (/-2., 14./), &
         dx = (x_range(2) - x_range(1))/(nx-1)
-    !CFL
-    Real, parameter :: CFL = 0.1
     !Times to output
     Real, parameter :: tend(ntend) = (/1., 2., 3., 4./)
     
     !Global variables
-    Real*4, save :: t, u(nx), x(nx), dt, s=1.
-    !$omp threadprivate(t, u, x, dt, s)
+    Real*4, save :: t, u(nx), x(nx), dt, s=1., CFL=0.1
+    !$omp threadprivate(t, u, x, dt, s, CFL)
 end module Global
