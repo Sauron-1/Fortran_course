@@ -1,0 +1,75 @@
+\documentclass{ctexart}
+
+\input{../structure.tex}
+
+\homework{五}
+
+\begin{document}
+\maketitle
+
+\begin{answer}
+
+    \question{1}
+    用interface定义出一个新的虚拟函数Area，当调用area只输入一个浮点数时，把他当成是圆的半径值，计算并返回圆的面积。
+    当输入两个浮点数时，把他们当成是矩形的两个边长，并返回矩形的面积。\\
+
+    直接计算。测试程序输出area(5.)和area(3., 4.)的值。代码如下：
+    \code{area.f90}
+    测试代码如下：
+    \code{test.f90}
+    无输入文件，输出文件为\file{output.txt}
+
+    \question{2}
+    用 Lax-Wendroff格式编写程序求解Burgers方程，并分析CFL（柯朗数）对计算的影响。\\
+
+    对于非线性方程
+    \[\frac{\partial u(x,t)}{\partial t}+\frac{\partial f(u(x,t))}{\partial x} = 0\]
+    Lax-Wendroff格式的表达式为：
+    \[u_i^{n+1}=u_i^n-\frac{\Delta t}{2\Delta x}[f(u_{i+1}^n)-f(u_{i-1}^n)]+
+                \frac{\Delta t^2}{2\Delta x^2}[A_{i+1/2}(f(u_{i+1}^n)-f(u_i^n))
+                -A_{i-1/2}(f(u_i^n)-f(u_{i-1}^n))]\]
+    式中，$A_{i\pm 1/2}$的值为$\frac12(u_i^n+u_{i\pm 1}^n$。本例中，
+    \[f(u)=\frac12u^2\]
+    全局定义代码：
+    \code{global.f90}
+    计算代码：
+    \code{routines.f90}
+    非并行测试代码：
+    \code{main.f90}
+    并行测试代码，包括$s=\pm 1$：
+    \code{parallel.f90}
+    绘图代码：
+    \codes{python}{draw.py}
+    其中，并行测试部分的第一个输出与非并行部分相同，以下插图不再重复。
+    $s = 1$：
+    \pict{parallel0.eps}\\
+    $s = -1$：
+    \pict{parallel1.eps}\\
+    非并行程序的输出文件为\file{LW.dat}，相应图像为\file{LW.eps}。
+    并行程序的输出文件为\file{parallel0.dat}和\file{parallel1.dat}。
+
+    \question{3}
+    用蛙跳格式编写程序求解扩散方程，并分析CFL（柯朗数）对计算的影响。\\
+
+    套入格式直接计算即可。由于该隐式格式简单，可以直接转换为显示格式计算，即：
+    \[u_i^{n+1}=(u_i^{n-1}+\frac{2b\Delta t}{\Delta x^2}(u_{i+1}^n-u_i^{n-1}+u_{i-1}^n))/(1+\frac{2b\Delta t}{\Delta x^2})\]
+    全局定义代码：
+    \code{global.f90}
+    计算代码：
+    \code{routines.f90}
+    非并行测试代码：
+    \code{main.f90}
+    并行测试代码，包括$s=\pm 1$：
+    \code{parallel.f90}
+    绘图代码：
+    \codes{python}{draw.py}
+    其中，并行测试部分的第一个输出与非并行部分相同，以下插图不再重复。\\
+    单峰：
+    \pict{parallel0.eps}\\
+    双峰：
+    \pict{parallel1.eps}\\
+    非并行程序的输出文件为\file{data.dat}，相应图像为\file{data.eps}。
+    并行程序的输出文件为\file{parallel0.dat}和\file{parallel1.dat}。
+
+\end{answer}
+\end{document}

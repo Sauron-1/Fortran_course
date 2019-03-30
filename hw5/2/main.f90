@@ -1,4 +1,5 @@
 program main
+    !One thread test, use s = 1 as default
     use Global
     use Routines
     implicit none

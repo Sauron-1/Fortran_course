@@ -4,6 +4,8 @@
 \usepackage{fontspec}
 \usepackage{xcolor}
 \usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage[colorlinks=true,filecolor=blue,urlcolor=blue,linkcolor=blue]{hyperref}
 \lstset{
     basicstyle=\fontspec{Courier Bold},
@@ -28,4 +30,5 @@
     \def\path{#1}
     \item[#1]
 }
+\def\pict#1{\\\href{\path/#1}{\underline{#1}}\\\includegraphics[scale=0.7]{\path/#1}}
 \newenvironment{answer}{\begin{enumerate}}{\end{enumerate}}

@@ -1,36 +1,33 @@
 program main
+    !Parallel test. Use s = 1 and s = -1.
+    !Output to parallel_0.dat and parallel_1.dat
     use Global
     use Routines
     implicit none
     Integer :: i, j
+    Character :: filename
 
-    !$omp parallel do private(j)
+    !$omp parallel do private(j, filename)
     do i = 0, 1
+        write(filename, '(i1)') i
         select case(i)
             case(0)
                 s = 1
                 call init
-                open(10, file='parallel_0.dat', status='replace', form='unformatted')
-                write(10) t, u
             case(1)
                 s = -1
                 call init
-                open(11, file='parallel_1.dat', status='replace', form='unformatted')
-                write(11) t, u
         end select
+        call init
+        open(10+i, file='parallel'//filename//'.dat', &
+            status='replace', form='unformatted')
+        write(10+i) t, u
 
         do j = 1, ntend
             do while(t < tend(j))
                 call next_LW
             end do
-
-            select case(i)
-                case(0)
-                    write(10) t, u
-                case(1)
-                    write(11) t, u
-            end select
-
+            write(10+i) t, u
         end do
     end do
     !$omp end parallel do

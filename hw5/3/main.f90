@@ -1,4 +1,5 @@
 program main
+    !One thread case.
     use Global
     use Routines
     implicit none

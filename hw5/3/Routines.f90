@@ -3,6 +3,7 @@ module Routines
     implicit none
     contains
 
+        !Initialize everything to default value.
         subroutine init
             implicit none
             Integer :: i
@@ -15,6 +16,7 @@ module Routines
             t = 0
         end subroutine init
 
+        !Use when need different u.
         subroutine init_without_u
             implicit none
             Integer :: i
@@ -24,6 +26,7 @@ module Routines
             t = 0
         end subroutine init_without_u
 
+        !Let u_last and u_next equals to u. Call when u is envalued.
         subroutine init_u
             implicit none
             u_last = u

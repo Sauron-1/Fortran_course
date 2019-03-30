@@ -1,4 +1,5 @@
 module Routines
+    !This module defines init operation and step operation.
     use Global
     implicit none
     contains
@@ -14,6 +15,8 @@ module Routines
         end subroutine init
 
         subroutine next_LW
+            !Lax-Wendroff method.
+            !Calling this subroutine will make the module step forward.
             implicit none
             Real, save :: u_t(0:nx+1), a_t(1:nx+1)
             !$omp threadprivate(u_t, a_t)
