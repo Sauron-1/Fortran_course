@@ -14,6 +14,7 @@ program main
     end forall
 
     x = sin(x)
+    !Calculate with array operation.
     s = sum(h*(x(:n)+x(2:))/2.)
 
     write(*, 100) a, b, n

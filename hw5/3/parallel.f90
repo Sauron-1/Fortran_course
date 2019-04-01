@@ -8,7 +8,7 @@ program main
     Real, parameter :: pi=3.14159265358979
     Character :: filename
 
-    !$omp parallel do private(j)
+    !$omp parallel do private(j, filename)
     do i = 0, 3
         call init_without_u
         select case(i)

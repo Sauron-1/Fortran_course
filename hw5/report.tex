@@ -28,7 +28,7 @@
     \[u_i^{n+1}=u_i^n-\frac{\Delta t}{2\Delta x}[f(u_{i+1}^n)-f(u_{i-1}^n)]+
                 \frac{\Delta t^2}{2\Delta x^2}[A_{i+1/2}(f(u_{i+1}^n)-f(u_i^n))
                 -A_{i-1/2}(f(u_i^n)-f(u_{i-1}^n))]\]
-    式中，$A_{i\pm 1/2}$的值为$\frac12(u_i^n+u_{i\pm 1}^n$。本例中，
+    式中，$A_{i\pm 1/2}$的值为$\frac12(u_i^n+u_{i\pm 1}^n)$。本例中，
     \[f(u)=\frac12u^2\]
     全局定义代码：
     \code{global.f90}
@@ -47,12 +47,12 @@
     \pict{parallel1.eps}\\
     $s = 1, CFL=0.5$：
     \pict{parallel2.eps}\\
-    $s = 1, CFL=1$：
+    $s = 1, CFL=2$：
     \pict{parallel3.eps}\\
     非并行程序的输出文件为\file{LW.dat}，相应图像为\file{LW.eps}。
     并行程序的输出文件为\file{parallel0.dat}和\file{parallel1.dat}。
 
-    CFL在网格足够密时影响较小。
+    CFL较大时，会导致计算结果不稳定。
 
     \question{3}
     用蛙跳格式编写程序求解扩散方程，并分析CFL（柯朗数）对计算的影响。\\
@@ -81,7 +81,7 @@
     非并行程序的输出文件为\file{data.dat}，相应图像为\file{data.eps}。
     并行程序的输出文件为\file{parallel0.dat}和\file{parallel1.dat}。
 
-    CFL在网格足够密集时几乎没有影响。
+    CFL较大时，会导致计算结果不稳定。
 
     \question{4}
     求$\int_0^1 \sin x dx$\\

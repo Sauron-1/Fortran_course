@@ -20,7 +20,7 @@ program main
                 CFL = 0.5
             case(3)
                 s = 1
-                CFL = 1
+                CFL = 2
         end select
         call init
         open(10+i, file='parallel'//filename//'.dat', &
