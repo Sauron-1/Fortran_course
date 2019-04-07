@@ -8,3 +8,4 @@
 *.dat
 *.eps
 zips/
+__pycache__

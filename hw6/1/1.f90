@@ -1,4 +1,5 @@
 function lagrange(x)
+    !works only on the given question.
     implicit none
     Real :: lagrange, x, ret
     Integer :: length, i
@@ -8,9 +9,11 @@ function lagrange(x)
     ret = 0.
     length = size(xs)
     do i = 1, length
+        !$omp workshare
         ret = ret + &
                    ys(i)*product(x-xs(1:i-1))*product(x-xs(i+1:length))/ &
                    product(xs(i)-xs(1:i-1))/product(xs(i)-xs(i+1:length))
+        !$omp end workshare
     end do
     lagrange = ret
 end function lagrange

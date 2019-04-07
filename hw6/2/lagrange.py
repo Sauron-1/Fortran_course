@@ -3,12 +3,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Lagrange:
+    '''
+    This class works as a function once initialed.
+    '''
     
     def __init__(self, xs, ys):
+        '''
+        __init__(self, xs, ys)
+
+        args:
+            xs, ys: points for interpolate.
+        '''
         self.xs = xs.reshape(xs.size, 1)
         self.ys = ys.reshape(ys.size, 1)
 
     def __call__(self, x):
+        '''
+        __call__(self, x)
+
+        args:
+            x: a number or a ndarray.
+
+        returns:
+            pridiction of x, using lagrange interpolate.
+        '''
         ret = 0
         if isinstance(x, np.ndarray):
             x = x.reshape(1, x.size)
@@ -22,6 +40,7 @@ class Lagrange:
         return ret
 
 if __name__ == '__main__':
+    #Solve the question
     import sys
     xs = np.array([1.05, 1.1, 1.15, 1.2])
     ys = np.array([2.12, 2.2, 2.17, 2.32])

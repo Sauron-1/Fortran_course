@@ -1,0 +1,89 @@
+\documentclass{ctexart}
+
+\input{../structure.tex}
+
+\homework{六}
+
+\begin{document}
+
+\maketitle
+
+\begin{answer}
+
+    \question{1}
+    给出函数表
+    \begin{tabular}{c|cccc}
+        \hline
+        x & 1.05 & 1.10 & 1.15 & 1.20 \\
+        \hline
+        f(x) & 2.12 & 2.20 & 2.17 & 2.32\\
+        \hline
+    \end{tabular}
+    构造拉格朗日插值函数，计算f(1.075)和f(1.175)的近似值。\\
+
+    直接套公式计算即可。其中乘法用product函数实现。已部分并行化。代码如下：
+    \code{1.f90}
+    输出文件为\file{output.txt}。
+
+    \question{2}
+    IDL编写拉格朗日插值，自己写/调包各一个，并比较。\\
+
+    买不起IDL，支持正版。用python完成。\\
+    同上，直接套公式。为复用性，定义为类。代码如下：
+    \codes{python}{lagrange.py}
+    输出图片：
+    \pict{lagrange.eps}\\
+    调用scipy.interpolate.interp1d完成，代码如下：
+    \codes{python}{scipy-interpolate.py}
+    输出图片：
+    \pict{scipy-interpolate.eps}\\
+    结果一样（为什么不呢？）。
+
+    \question{3}
+    求高次多项式的全部实根。\\
+
+    考虑用矩阵实现。由于n阶方阵有n个特征值，可构造方阵，使其特征值为n次方程的n个根。
+    考虑如下矩阵：
+    \[ M = \begin{pmatrix}
+        0 & 0 & \dots & -p_0 \\
+        1 & 0 & \dots & -p_1 \\
+        \vdots & \ddots & & \vdots \\
+        0 & \dots & 1 & -p_{n-1}
+    \end{pmatrix} \]
+    式中，$p_i$为多项式中$x^i$项系数。容易算出，$M$的特征多项式为：
+    \[p_0 + p_1\lambda + p_2\lambda^2 + \dots + p_{n-1}\lambda^{n-1} + \lambda^{n}\]
+    所以$M$的特征值即为多项式方程的解。
+
+    例程中使用QR方法求解特征值，算法参考自\href{https://zh.wikipedia.org/wiki/QR\%E5\%88\%86\%E8\%A7\%A3}{维基百科}。
+    经过足够的迭代后，矩阵$R\times Q$对角线上的元素即为矩阵的实特征值，如果该元素下方即左方元素为零的话。
+    而其所有复特征值将在结果中表现为对角线附近$2\times 2$的方阵的特征值。
+    参考\href{http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter4.pdf}{http://people.inf.ethz.ch/arbenz/ewp/Lnotes/chapter4.pdf}
+
+    在实验中，存在部分使得QR算法不收敛的情况，此时该算法将给出错误的结果。这种情况很少见。
+    算法思路参考自\href{https://github.com/numpy/numpy}{numpy}源码。
+
+    求解代码如下：
+    \code{util.f90}
+    测试代码如下：
+    \code{test.f90}
+    测试输入文件为\file{input.txt}，输出文件为\file{output.txt}，输入提示保存为\file{err.txt}。
+
+    \question{4}
+    用四阶龙格-库塔格式求解初值问题
+    \[ \frac{dy}{dx}=y^2\cos x\]
+    \[y(0) = 1\]
+    \[0 \le x \le 0.8\] \\
+
+    直接套用公式求解即可。代码如下：
+    \code{runge-kutta.f90}
+    测试代码如下：
+    \code{test.f90}
+    输出文件为\file{res.dat}。\\
+    画图代码如下：
+    \codes{python}{plot.py}
+    图像：
+    \pict{res.eps} 
+
+\end{answer}
+
+\end{document}
