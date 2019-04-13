@@ -1,0 +1,47 @@
+\documentclass{ctexart}
+
+\input{../structure.tex}
+
+\homework{七}
+
+\begin{document}
+
+    \maketitle
+
+    \begin{answer}
+
+        \question{1}
+        自己写一个图形符号圆圈，并用该符号画图（数据随机生成即可）。\\
+
+        生成0到$2\pi$之间表示角度的数组，并用其计算出多个顶点。其围成的多边形在边数足够多时即可作为圆。代码如下：
+        \codes{python}{circle\string_marker.py}
+        生成图片如下：
+        \pict{circle-marker.eps}\\
+        无输入或输出文件。
+
+        \question{2}
+        编写和查找外部程序实现画图展示双方向的误差棒图。\\
+
+        在每个坐标点处另外画出作为误差棒的线段即可。代码如下：
+        \codes{python}{errorbar.py}
+        matplotlib.pyplot.errorbar支持双向误差棒，可直接调用。
+        \codes{python}{test.py}
+        调用自编误差棒函数效果如下：
+        \pict{my.eps}\\
+        调用matplotlib函数效果如下：
+        \pict{lib.eps}\\
+        自编函数未画出误差棒端点的短线。本程序无标准流输入、输出文件。
+
+        \question{3}
+        读入数据，等值线制图展示$D_{xx}$在$\alpha-E_k$平面内的分布。
+
+        数据格式参照老师课件中的程序读入。用matplotlib.pyplot.pcolormesh做图。（李星宇说画这个，可是等值线不是不填色的那种吗？）
+        代码如下：
+        \codes{python}{test.py}
+        图如下：
+        \pict{color.eps}\\
+        无标准流上的输入、输出。
+
+    \end{answer}
+
+\end{document}

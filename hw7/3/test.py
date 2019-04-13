@@ -1,14 +1,15 @@
+import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.io import FortranFile
-from rebin import rebin
 
+#Read file, according to codes given in the slides
 f = FortranFile('COEFF_DAY.DAT', 'r')
 nx = f.read_ints()[0]
 ny = f.read_ints()[0]
 xy = f.read_reals(dtype=np.float32)
-x = xy[:xy.size//2]
-y = xy[xy.size//2:]
+x = xy[:nx]
+y = xy[nx:]
 bdxx = f.read_reals(dtype=np.float32).reshape((nx, ny))
 bdyy = f.read_reals(dtype=np.float32).reshape((nx, ny))
 bdxy = f.read_reals(dtype=np.float32).reshape((nx, ny))
@@ -21,8 +22,9 @@ bdxy = bdxy / Y
 alpha = X/np.pi*180
 Ek = 0.511*(np.sqrt(Y*Y+1)-1)
 
-plt.pcolormesh(alpha, Ek, bdxx, cmap='jet')
-#plt.contour(alpha, Ek, bdxx, cmap='jet')
+#Just plot.
+norm = colors.LogNorm(vmin=1e-8, vmax=1e-2)
+plt.pcolormesh(alpha, Ek, bdxx, cmap='jet', norm=norm)
 plt.xlabel(r'$\alpha(Deg)$')
 plt.ylabel(r'$E_k$')
 plt.yscale('log')
@@ -32,4 +34,5 @@ plt.tick_params(which='both',
                 right=True)
 cbar = plt.colorbar()
 cbar.ax.set_ylabel(r'$D_{xx}$')
-plt.show()
+cbar.ax.set_yscale('log')
+plt.savefig('color.eps', format='eps')

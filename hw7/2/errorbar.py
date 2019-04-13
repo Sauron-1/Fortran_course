@@ -1,11 +1,47 @@
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
-xs = np.arange(10)
-ys = xs**2
+def myerrorbar(x, y=None, xerr=None, yerr=None, **kwargs):
+    '''
+    myerrorbar([x,] y, xerr=None, yerr=None, **kwargs)
 
-err_xs = 0.05 * xs
-err_ys = 0.05 * ys
+    args:
+        x, y: array-like or scalar
+            List of coordinata. x and y should have same size.
+            *x* value is optional. If not given, they default to
+            ``[0, ..., N-1]``
 
-plt.errorbar(xs, ys, xerr=err_xs, yerr=err_ys, capsize=2)
-plt.show()
+        xerr, yerr: array-like, optional
+            Err values of each x, y. Should have same size
+            as x and y, or be None.
+
+        kwargs:
+            See matplotlib.pyplot.plot.
+
+    returns:
+        Same as matplotlib.pyplot.plot(x, y, **kwargs)
+
+    '''
+    #If no x is given, y is on x's position.
+    if y is None:
+        y = x
+        x = np.arange(y.size)
+
+    ret = plt.plot(x, y, **kwargs)
+    color = ret[0].get_color()
+
+    #x errors.
+    if xerr is not None:
+        for i in range(x.size):
+            plt.plot([x[i]-xerr[i], x[i]+xerr[i]],
+                     [y[i], y[i]],
+                     color=color)
+
+    #y errors.
+    if yerr is not None:
+        for i in range(x.size):
+            plt.plot([x[i], x[i]],
+                     [y[i]-yerr[i], y[i]+yerr[i]],
+                     color=color)
+
+    return ret
