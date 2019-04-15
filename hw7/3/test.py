@@ -34,5 +34,4 @@ plt.tick_params(which='both',
                 right=True)
 cbar = plt.colorbar()
 cbar.ax.set_ylabel(r'$D_{xx}$')
-cbar.ax.set_yscale('log')
 plt.savefig('color.eps', format='eps')
