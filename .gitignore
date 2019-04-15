@@ -6,6 +6,7 @@
 *.toc
 *.mod
 *.dat
+*.DAT
 *.eps
 zips/
 __pycache__
