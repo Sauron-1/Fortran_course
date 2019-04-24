@@ -155,9 +155,9 @@ class Shape:
         else:
             return Shape(arr=np.concatenate((self.get_array(), arr), axis=1))
 
-    def add_line(self, fnx, fny, ts, argx={}, argy={}, update):
+    def add_line(self, fnx, fny, ts, argx={}, argy={}, update=False):
         '''
-        add_line(self, fnx, fny, ts, *args, **kwargs):
+        add_line(self, fnx, fny, ts, argx={}, argy={}, update=False)
             Add a line defined by fnx and fny, with value of ts.
 
         args:
@@ -166,5 +166,60 @@ class Shape:
 
             argx, argy: dict
                 Arguments to be passed to fnx and fny.
-        '''
+            
+            update: bool
+                Whether to change the Shape itself.
 
+        returns:
+            A Shape object with more points.
+        '''
+        self.add_array(np.array([fnx(ts, **argx), fny(ts, **argy)]), update)
+        return self
+
+    def loop(self, update=False):
+        '''
+        loop(self)
+            Add first point to the end of point list.
+        
+        args:
+            update: bool
+                Whether to change the Shape itself.
+
+        returns:
+            A Shape object.
+        '''
+        return self.add_array(self.arr[:,[0]], update)
+
+    def plot(self, ax, **kwargs):
+        '''
+        plot(self, ax, **kwargs)
+            Plot the Shape.
+
+        args:
+            ax: matplotlib.axes._subplots.AxesSubplot
+                The axes to plot to.
+
+            kwargs:
+                See matplotlib.axes._subplots.AxesSubplot.plot
+
+        returns:
+            See matplotlib.axes._subplots.AxesSubplot.plot
+        '''
+        return ax.plot(self.arr[0], self.arr[1], **kwargs)
+
+    def fill(self, ax, **kwargs):
+        '''
+        fill(self, ax, **kwargs)
+            Fill the Shape.
+
+        args:
+            ax: matplotlib.axes._subplots.AxesSubplot
+                The axes to fill to.
+
+            kwargs:
+                See matplotlib.axes._subplots.AxesSubplot.fill_between
+
+        returns:
+            See matplotlib.axes._subplots.AxesSubplot.fill_between
+        '''
+        return ax.fill_between(self.arr[0], self.arr[1], **kwargs)
