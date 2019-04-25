@@ -135,9 +135,9 @@ class Shape:
             tarr[1] = tarr[1] + y
             return Shape(arr=tarr)
 
-    def add_array(self, arr, update=False):
+    def add_array(self, arr, update=True):
         '''
-        add_array(self, arr, update=False):
+        add_array(self, arr, update=True):
             Add a group of points to this Shape.
 
         args:
@@ -155,9 +155,9 @@ class Shape:
         else:
             return Shape(arr=np.concatenate((self.get_array(), arr), axis=1))
 
-    def add_line(self, fnx, fny, ts, argx={}, argy={}, update=False):
+    def add_line(self, fnx, fny, ts, argx={}, argy={}, update=True):
         '''
-        add_line(self, fnx, fny, ts, argx={}, argy={}, update=False)
+        add_line(self, fnx, fny, ts, argx={}, argy={}, update=True)
             Add a line defined by fnx and fny, with value of ts.
 
         args:
@@ -176,9 +176,9 @@ class Shape:
         self.add_array(np.array([fnx(ts, **argx), fny(ts, **argy)]), update)
         return self
 
-    def loop(self, update=False):
+    def loop(self, update=True):
         '''
-        loop(self)
+        loop(self, update=True)
             Add first point to the end of point list.
         
         args:
@@ -223,3 +223,69 @@ class Shape:
             See matplotlib.axes._subplots.AxesSubplot.fill_between
         '''
         return ax.fill_between(self.arr[0], self.arr[1], **kwargs)
+
+
+def arc(f, t, r, n=100, major=False, out=True):
+    '''
+    arc(f, t, rou, n=100, major=False, out=True)
+        Get a n points of arc from f to t with radius r.
+
+    args:
+        f, t: (x, y) as float
+            From point and to point.
+
+        rou: float
+            Radius.
+
+        n: int
+            Number of points, default is 100.
+
+        major: bool
+            Whether the arc is major arc.
+
+        out: bool
+            Whether the arc is outwords.
+
+    returns:
+        A 2-D array like [[x1, x2, ...], [y1, y2, ...]].
+    '''
+    dx = t[0] - f[0]
+    dy = t[1] - f[1]
+    r = 2*r / np.sqrt(dx**2+dy**2)
+    if major:
+        thetas = np.linspace(-np.arccos(1/r), np.pi+np.arccos(1/r), n)
+        xs = r*np.cos(thetas)
+        ys = r*np.sin(thetas) + np.sqrt(r**2-1)
+    else:
+        thetas = np.linspace(np.arccos(1/r), np.pi-np.arccos(1/r), n)
+        xs = r*np.cos(thetas)
+        ys = r*np.sin(thetas) - np.sqrt(r**2-1)
+
+    if not out:
+        ys = -1 * ys
+
+    r_mat = 0.5*np.array([[dx, -dy],
+                      [dy, dx]])
+    points = r_mat.dot(np.array([xs, ys]))
+    points[0] = points[0] + 0.5*(f[0] + t[0])
+    points[1] = points[1] + 0.5*(f[1] + t[1])
+
+    return points
+
+def line(f, t, n=100):
+    '''
+    line(f, t, n=100)
+        Get n points of a line from f to t.
+
+    args:
+        f, t: (x, y) as float
+            From point and to point.
+
+        n: int
+            Number of points.
+
+    returns:
+        A 2-D array like [[x1, x2, ...], [y1, y2, ...]].
+    '''
+    return np.array([np.linspace(f[0], t[0], n),
+                     np.linspace(f[1], t[1], n)])

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from util import Shape
+from util import Shape, arc, line
 
 def cos_p(theta, c, r):
     return r*np.cos(theta) + c
@@ -9,11 +9,28 @@ def cos_p(theta, c, r):
 def sin_p(theta, c, r):
     return r*np.sin(theta) + c
 
-thetas = np.linspace(3*np.pi/2., 0, 100)
-s = Shape()
-s.add_line(np.cos, np.sin, thetas, update=True)
-s.add_line(cos_p, sin_p, np.linspace(0, -np.pi/2, 50),
-          {'c':-1, 'r':2}, {'c':0, 'r':2}, update=True)
-s.loop(update=True)
-s.fill(plt.gca(), facecolor='black')
+ax = plt.gca()
+ax.set_aspect(1)
+
+#comma
+comma = Shape()
+comma.add_array(arc([0, -1], [1, 0], 1, major=True))
+comma.add_array(arc([1, 0], [-1, -2], 2))
+comma.add_array(arc([-1, -2], [0, -1], 1.5, out=False))
+comma.loop(update=True)
+#comma.fill(plt.gca(), facecolor='black')
+
+#circle
+thetas = np.linspace(0, 2*np.pi, 200)
+circle = Shape()
+circle.add_line(np.cos, np.sin, thetas)
+circle.loop()
+#circle.fill(plt.gca(), facecolor='red')
+
+circle.scale(11, 11).fill(ax, facecolor='black')
+circle.scale(10, 10).fill(ax, facecolor='red')
+circle.scale(6, 6).fill(ax, facecolor='black')
+circle.scale(5, 5).fill(ax, facecolor='red')
+circle.fill(ax, facecolor='black')
+comma.move(0, -5.5).fill(ax, facecolor='black')
 plt.show()
