@@ -253,11 +253,11 @@ def arc(f, t, r, n=100, major=False, out=True):
     dy = t[1] - f[1]
     r = 2*r / np.sqrt(dx**2+dy**2)
     if major:
-        thetas = np.linspace(-np.arccos(1/r), np.pi+np.arccos(1/r), n)
+        thetas = np.linspace(np.pi+np.arccos(1/r), -np.arccos(1/r), n)
         xs = r*np.cos(thetas)
         ys = r*np.sin(thetas) + np.sqrt(r**2-1)
     else:
-        thetas = np.linspace(np.arccos(1/r), np.pi-np.arccos(1/r), n)
+        thetas = np.linspace(np.pi-np.arccos(1/r), np.arccos(1/r), n)
         xs = r*np.cos(thetas)
         ys = r*np.sin(thetas) - np.sqrt(r**2-1)
 
@@ -265,7 +265,7 @@ def arc(f, t, r, n=100, major=False, out=True):
         ys = -1 * ys
 
     r_mat = 0.5*np.array([[dx, -dy],
-                      [dy, dx]])
+                         [dy, dx]])
     points = r_mat.dot(np.array([xs, ys]))
     points[0] = points[0] + 0.5*(f[0] + t[0])
     points[1] = points[1] + 0.5*(f[1] + t[1])
