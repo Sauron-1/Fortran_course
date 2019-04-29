@@ -222,7 +222,7 @@ class Shape:
         returns:
             See matplotlib.axes._subplots.AxesSubplot.fill_between
         '''
-        return ax.fill_between(self.arr[0], self.arr[1], **kwargs)
+        return ax.fill(self.arr[0], self.arr[1], **kwargs)
 
 
 def arc(f, t, r, n=100, major=False, out=True):
