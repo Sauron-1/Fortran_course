@@ -1,9 +1,6 @@
 import numpy as np
 
-#Shape is a 2*n array, s[0] is x value
-#s[1] is y value.
-
-class Shape:
+class Shape(object):
 
     def __init__(self, xs=None, ys=None, arr=None):
         '''
@@ -52,9 +49,6 @@ class Shape:
             Rotate Shape clockwise with theta
 
         args:
-            shape: Shape
-                A Shape object to be rotated.
-    
             theta: float
                 Angle to rotate clockwise.
 
@@ -217,10 +211,10 @@ class Shape:
                 The axes to fill to.
 
             kwargs:
-                See matplotlib.axes._subplots.AxesSubplot.fill_between
+                See matplotlib.axes._subplots.AxesSubplot.fill
 
         returns:
-            See matplotlib.axes._subplots.AxesSubplot.fill_between
+            See matplotlib.axes._subplots.AxesSubplot.fill
         '''
         return ax.fill(self.arr[0], self.arr[1], **kwargs)
 

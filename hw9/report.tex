@@ -1,0 +1,29 @@
+\documentclass{ctexart}
+
+\input{../structure.tex}
+
+\homework{九}
+
+\begin{document}
+
+\maketitle
+
+\begin{answer}
+    \question{1}
+    画写轮眼。\\
+
+    由于所涉及的图案中图形多为几个简单图形的变换，考虑先实现有该功能的类，
+    以方便使用。用二维数组表示一个图形的各个顶点，则缩放和旋转变换均为一个
+    矩阵与该数组相乘，平移变换为x、y两行加平移量。
+
+    同时，观察到图形多由直线与弧线组成，编写函数生成给定两点间绘制给定参数
+    弧线和直线上的数组，具体见代码。
+
+    由于本次代码较长，不再直接写入报告，仅列出代码文件链接。
+
+    工具代码：\file{util.py}；绘图代码：\file{test.py}。\\
+    绘图效果如下：\\
+    \pict{test.eps}\\
+    无标准流输入、输出文件。
+\end{answer}
+\end{document}
