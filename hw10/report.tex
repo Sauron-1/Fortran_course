@@ -1,0 +1,41 @@
+\documentclass{ctexart}
+
+\input{../structure.tex}
+\usepackage{animate}
+
+\homework{十}
+
+\begin{document}
+
+\maketitle
+
+\begin{answer}
+    \question{1}
+    制图显示omega-k在不同theta的函数关系。
+    \[\left(\frac{k}{\omega}\right)^2=1-\frac{\rho}{\omega(\omega-\cos\theta)}\]
+    \[\omega\in[0, 1]\]
+    \[\theta\in[0^{\circ}, 90^{\circ}]\]
+    \[\rho=5\]\\
+
+    直接做图即可。matplotlib中文本支持\LaTeX 公式，可以方便地显示希腊字母。代码如下：
+    \codes{python}{test.py}
+    运行时抛出除零异常，可以忽略。输出图片如下：\\
+    \pict{test.eps}\\
+    无标准输入、输出流文件。
+
+    \question{2}
+    将之前对流方程的那道作业题不同时间的图线合成一个动图。\\
+
+    使用matplotlib.animation即可。代码如下：
+    \codes{python}{test.py}
+    原计划使用f2py将之前的Fortran代码编译为python库，但当切换到Windows系统时使用mingw编译器
+    会出现兼容性错误，又懒得下载vc，于是偷懒用python写了一个解方程的代码，见\file{solve.py}，
+    与之前Fortran代码类似，不再展示。
+
+    输出动图如下：（在某些pdf阅读器，如Chrome浏览器中无法直接查看）\\
+    \animategraphics[scale=0.7,autoplay,loop]{20}{rep-}{0}{99}\\
+    无标准流输入或输出。其中上附动图并非上附代码生成的gif动图，而是由\LaTeX 生成并插入。
+    gif格式图片见\file{test.gif}。
+
+\end{answer}
+\end{document}
