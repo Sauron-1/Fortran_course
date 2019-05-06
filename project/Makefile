@@ -15,8 +15,11 @@ report = report.pdf
 .PHONY: all
 all: $(report)
 
-$(objects): %.o: %.f90
+$(objects): %.o: %.f90 $(OBJPATH)
 	$(FC) -c $< -o $(OBJPATH)/$@
+
+$(OBJPATH):
+	mkdir $(OBJPATH)
 
 $(exe): $(objects)
 	$(FC) $(addprefix $(OBJPATH)/, $(objects)) -o $@
