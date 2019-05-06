@@ -1,0 +1,8 @@
+obj/*
+*.mod
+report.*
+!report.tex
+*.out
+*.exe
+*.eps
+*.dat

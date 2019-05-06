@@ -1,0 +1,92 @@
+\documentclass{ctexart}
+\usepackage{geometry}
+\geometry{a4paper, centering, scale=0.8}
+\usepackage{listings}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage[colorlinks=true,filecolor=blue,urlcolor=blue,linkcolor=blue]{hyperref}
+\lstset{
+    basicstyle=\fontspec{Courier Bold},
+    columns=fixed,
+    numbers=left,
+    frame=none,
+    backgroundcolor=\color[RGB]{200,200,200},
+    keywordstyle=\color[RGB]{40,40,255},
+    numberstyle=\footnotesize\color{darkgray},
+    commentstyle=\it\color[RGB]{0,96,96}\fontspec{Courier Bold},
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}\fontspec{Courier Bold},
+    showstringspaces=false,
+    language=fortran,
+}
+
+\def\file#1#2{\href{#1/#2}{\underline{#2}}}
+
+\title{2019年春季思考题报告}
+\author{任俊屹，曹炅宣，张炜}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{程序思路}
+    该问题为二阶其次微分方程的边界问题，只包含一个自变量。由于问题的本征值已知，可以忽略一个边界条件
+    并任意指定一阶导数的初值。同时，由于变量$s$仅依赖于$\theta$，故可以将方程的自变量全部替换为$\theta$。
+
+    为书写方便，以下记：
+    \[B=\frac{\partial}{\partial s}\ln \left[h(s)^2B(s)\right]\]
+    \[C=\left(2\pi f\frac{\sqrt{\mu_0}{\rho}}{B(s)}\right)\]
+    \[y=\frac{\xi(s)}{h(s)}\]
+    原方程化为：
+    \[\frac{\partial^2}{\partial s^2}y+B\frac{\partial}{\partial s}y+Cy=0\]
+    又因为：
+    \[\frac{\partial}{\partial s}=\frac{1}{\frac{\partial s}{\partial\theta}}\frac{\partial}{\partial\theta}\]
+    所以方程进一步化为：
+    \[\frac{\partial^2}{\partial\theta^2}y+\left(-\frac{\frac{\partial^2s}{\partial\theta^2}}{\frac{\partial s}{\partial\theta}}+
+      B\frac{\partial s}{\partial\theta}\right)y+C\left(\frac{\partial s}{\partial\theta}\right)^2=0\]
+    这是关于$\theta$的二阶微分方程，其边界条件为：
+    \[y(\theta_{m1})=y(\theta_{m2})=0\]
+    $\theta_{m1}$和$\theta_{m2}$由$LR_E\sin^2\theta=R_E$确定。
+
+    由于本征值已知，取初值条件
+    \[y(\theta_{m1})=0, \quad \frac{\partial}{\partial\theta}y(\theta_{m2})=10^{-7}\]
+    代替边界条件计算。
+
+    至此方程已化为初值问题，考虑使用runge-kutta方法求解。为书写简便，记：
+    \[y'=\frac{\partial}{\partial\theta}y, \quad y''=\frac{\partial^2}{\partial\theta^2}y\]
+    并记$y'$项系数为$B'$，$y$项系数为$C'$。做代换：
+    \[z=y'\]
+    则方程化为：
+    \begin{equation*}
+        \begin{cases}
+            y'=z \\
+            z'=-B'z-C'y
+        \end{cases}
+    \end{equation*}
+    该式符合runge-kutta方法的格式。
+
+\section{源码文件组织}
+    \subsection{Fortran源码（目录src）}
+        \file{src}{parameters.f90}定义了与该问题有关的一些常数取值，\file{src}{functions.f90}定义了问题中给出的所有函数关系。
+        \file{src}{runge\_kutta.f90}为之前作业中编写 的四阶runge-kutta法程序。\file{src}{equation.f90}定义了前述推导中使用的简写
+        及函数。\file{src}{solve\_global.f90}定义了与方程求解过程相关的常数，\file{src}{solve.f90}为主程序，计算并输出文件。
+    \subsection{临时脚本（目录scripts）}
+        由于$\frac{\partial s}{\partial\theta}$、$\frac{\partial^2s}{\partial\theta^2}$和$B$的表达式十分复杂但仍为初等函数，故使用sympy
+        符号计算库求出其表达式。见脚本\file{scripts}{expr.py}。该脚本将上述表达式求出并输出到txt文件，在编写程序时可以直接读入。该脚本
+        及其输出文件仅用于程序编写而非程序运行。
+    \subsection{其他文件}
+        \file{.}{plot.py}利用输出结果绘制图片，\href{./Makefile}{\underline{Makefile}}帮助自动化编译运行。
+
+\section{运行结果}
+    对应各$f$本征值，得到的结果如下：\\
+    \begin{figure}[hb]
+        \centering
+        \includegraphics[scale=0.6]{test.eps}
+        \caption{\small 各$f$下$\xi-\theta$关系}
+    \end{figure}
+
+\end{document}
