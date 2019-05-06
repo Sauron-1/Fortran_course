@@ -9,7 +9,7 @@ VPATH = src
 objects = parameters.o runge_kutta.o functions.o equation.o solve_global.o solve.o
 exe = solve.exe
 data = test.dat
-pict = test.eps
+pict = xi-theta.eps xi-s.eps
 report = report.pdf
 
 .PHONY: all

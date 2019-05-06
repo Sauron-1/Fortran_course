@@ -15,7 +15,7 @@ ys = []
 for _ in fs:
     ys.append(f.read_reals(dtype=np.float64))
 
-#Plot.
+#Plot xi-theta
 fig, axs = plt.subplots(2, 3, sharex=True, sharey=True,
                         subplot_kw=dict(xlim=[thetas[0], thetas[-1]]))
 axs = axs.reshape(6)
@@ -38,4 +38,28 @@ for i in [3, 4, 5]:
 
 fig.tight_layout(pad=0.1)
 
-plt.savefig('test.eps', format='eps')
+plt.savefig('xi-theta.eps', format='eps')
+
+#Plot xi-s
+fig, axs = plt.subplots(2, 3, sharex=True, sharey=True,
+                        subplot_kw=dict(xlim=[s[0], s[-1]]))
+axs = axs.reshape(6)
+
+for i in range(len(ys)):
+    axs[i].plot(s, ys[i])
+    axs[i].text(0.05, 0.9, '$f=%.3f$'%fs[i], transform=axs[i].transAxes)
+    axs[i].set_xticks([0.7*s.min(), 0, 0.7*s.max()])
+    axs[i].set_yticks([0])
+    axs[i].set_yticklabels(['0'])
+    axs[i].tick_params(direction='in', right=True)
+    axs[i].plot(s, np.zeros(s.shape), color='black', 
+                linestyle='--', lw=0.5)
+
+for i in [0, 3]:
+    axs[i].set_ylabel(r'$\xi$')
+for i in [3, 4, 5]:
+    axs[i].set_xlabel(r'$s$')
+
+fig.tight_layout(pad=0.1)
+
+plt.savefig('xi-s.eps', format='eps')
